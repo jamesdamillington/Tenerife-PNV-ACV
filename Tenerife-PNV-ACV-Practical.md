@@ -34,10 +34,17 @@ Map.setCenter(lon, lat, zoom)
 var dataset = ee.FeatureCollection('USDOS/LSIB/2017');              //create a dataset from the cloud data
 var tenerifeBBox = ee.Geometry.Rectangle([-17, 27.9, -16, 28.6]);   //define a bounding box around Tenerife
 var filtered = dataset.filterBounds(tenerifeBBox);                  //from the dataset select only data within the bounding box
-var poly = filtered.geometry().coordinates().get(8);                //select only Tenerife's polygon (it's the 8th in the dataset) 
-var tenerife = ee.Geometry.Polygon(poly);                           //create a polygon GEE recognises from the Tenerife polygon 
+var poly = filtered.geometry().coordinates().get(8);                //select only Tenerife's polygon (it's the 8th in the dataset)
+var tenerife = ee.Geometry.Polygon(poly);                           //create a polygon GEE recognises from the Tenerife polygon
 Map.addLayer(tenerife, {color: 'green',}, 'Tenerife')               //add the GEE polygon to the map
 ```
+After running the code GEE should look like Figure 2
+
+<figure>
+    <img src="/img/Tenerife-PNV-ACV-task1-2.png"
+         alt="GEE view after step 1.2">
+    <figcaption>GEE view after step 1.2</figcaption>
+</figure>
 
 
 
