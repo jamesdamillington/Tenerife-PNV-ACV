@@ -20,6 +20,8 @@ In Term 1 you should have created a Google Earth Engine account that you then us
 
   1.1 **Open Google Earth Engine** by visiting [https://code.earthengine.google.com/](https://code.earthengine.google.com/) and logging in with your account.
 
+  1.2 Copy and paste the following code into the GEE Code Editor (you can quickly use the copy button in the top-right of the code block below) and click ‘Run’ in GEE to run the script.
+
 ```javascript
 //Centre the map on the coordinates of Tenerife, with a zoom of 10
 var lon = -16.6192096994827;
@@ -36,6 +38,8 @@ var poly = filtered.geometry().coordinates().get(8);                //select onl
 var tenerife = ee.Geometry.Polygon(poly);                           //create a polygon GEE recognises from the Tenerife polygon 
 Map.addLayer(tenerife, {color: 'green',}, 'Tenerife')               //add the GEE polygon to the map
 ```
+
+
 
 ## 2. Import PNV map and create ACV shapefile in QGIS
 
