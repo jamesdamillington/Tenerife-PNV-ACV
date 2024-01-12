@@ -20,22 +20,22 @@ In Term 1 you should have created a Google Earth Engine account that you then us
 
   1.1 **Open Google Earth Engine** by visiting [https://code.earthengine.google.com/](https://code.earthengine.google.com/) and logging in with your account.
 
+```javascript
+//Centre the map on the coordinates of Tenerife, with a zoom of 10
+var lon = -16.6192096994827;
+var lat = 28.24084164623232;
+var zoom = 10;
+Map.setCenter(lon, lat, zoom)
 
-    //Centre the map on the coordinates of Tenerife, with a zoom of 10
-    var lon = -16.6192096994827;
-    var lat = 28.24084164623232;
-    var zoom = 10;
-    Map.setCenter(lon, lat, zoom)
-
-    //Get administrative area polygon for Tenerife and display
-    //Date described here: https://developers.google.com/earth-engine/datasets/catalog/USDOS_LSIB_2017
-    var dataset = ee.FeatureCollection('USDOS/LSIB/2017');              //create a dataset from the cloud data
-    var tenerifeBBox = ee.Geometry.Rectangle([-17, 27.9, -16, 28.6]);   //define a bounding box around Tenerife
-    var filtered = dataset.filterBounds(tenerifeBBox);                  //from the dataset select only data within the bounding box
-    var poly = filtered.geometry().coordinates().get(8);                //select only Tenerife's polygon (it's the 8th in the dataset) 
-    var tenerife = ee.Geometry.Polygon(poly);                           //create a polygon GEE recognises from the Tenerife polygon 
-    Map.addLayer(tenerife, {color: 'green',}, 'Tenerife')               //add the GEE polygon to the map
-
+//Get administrative area polygon for Tenerife and display
+//Date described here: https://developers.google.com/earth-engine/datasets/catalog/USDOS_LSIB_2017
+var dataset = ee.FeatureCollection('USDOS/LSIB/2017');              //create a dataset from the cloud data
+var tenerifeBBox = ee.Geometry.Rectangle([-17, 27.9, -16, 28.6]);   //define a bounding box around Tenerife
+var filtered = dataset.filterBounds(tenerifeBBox);                  //from the dataset select only data within the bounding box
+var poly = filtered.geometry().coordinates().get(8);                //select only Tenerife's polygon (it's the 8th in the dataset) 
+var tenerife = ee.Geometry.Polygon(poly);                           //create a polygon GEE recognises from the Tenerife polygon 
+Map.addLayer(tenerife, {color: 'green',}, 'Tenerife')               //add the GEE polygon to the map
+```
 
 ## 2. Import PNV map and create ACV shapefile in QGIS
 
