@@ -40,12 +40,16 @@ Map.addLayer(tenerife, {color: 'green',}, 'Tenerife')               //add the GE
 ```
 After running the code, GEE should look like Figure 2
 
+---
+
 <center><figure>
     <img src="/img/Tenerife-PNV-ACV-task1-2.png"
          alt="GEE view after step 1.2"
          width="500">
-    <figcaption>GEE view after step 1.2</figcaption>
+    <figcaption>Figure 2. GEE view after step 1.2</figcaption>
 </figure></center>
+
+---
 
 See if you can understand what the code here does. Loading a polygon of the boundary of Tenerife will be useful below to work only with data for Tenerife. Much of the data supplied in the [Earth Engine Data Catalog](https://developers.google.com/earth-engine/datasets) is global in extent, and it's much quicker to clip the data just to work with the smaller region we want.
 
