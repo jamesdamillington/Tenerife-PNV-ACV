@@ -38,16 +38,10 @@ var poly = filtered.geometry().coordinates().get(8);                //select onl
 var tenerife = ee.Geometry.Polygon(poly);                           //create a polygon GEE recognises from the Tenerife polygon
 Map.addLayer(tenerife, {color: 'green',}, 'Tenerife')               //add the GEE polygon to the map
 ```
-After running the code, GEE should look like Figure 2
+After running the code, GEE should look like Figure 2.
 
----
-
-<center><figure>
-    <img src="/img/Tenerife-PNV-ACV-task1-2.png"
-         alt="GEE view after step 1.2"
-         width="500">
-    <figcaption>Figure 2. GEE view after step 1.2</figcaption>
-</figure></center>
+![GEE view after step 1.2](/img/Tenerife-PNV-ACV-task1-2.png)
+*Figure 2. GEE view after step 1.2*
 
 ---
 
@@ -56,6 +50,7 @@ See if you can understand what the code here does. Loading a polygon of the boun
 For example, the next block of code reads the [WorldClim](https://developers.google.com/earth-engine/datasets/catalog/WORLDCLIM_V1_BIO#description) data set and immediately <a href="http://wiki.gis.com/wiki/index.php/Clip" target="_blank">'clips'</a> it to the extent of Tenerife.
 
   1.3 **Copy and paste** the following code into the GEE Code Editor (below the last block of code) and **click ‘Run’ in GEE** to run the script.
+
 ```javascript
 // Get and Clip the WorldClim V1 Bioclim dataset using the Tenerife boundary
 // See https://developers.google.com/earth-engine/datasets/catalog/WORLDCLIM_V1_BIO#bands
@@ -79,12 +74,8 @@ After clipping the _WorldClim_ data to the extent of Tenerife, this code selects
 
 Once the code has been run, GEE should look like Figure 3. Remember that you can modify the visibility of layers that we are adding to the map, as shown in the animation.  
 
-<center><figure>
-    <img src="/img/Tenerife-PNV-ACV-task1-3.gif"
-         alt="GEE view after step 1.3"
-         width="500">
-    <figcaption>GEE view after step 1.3</figcaption>
-</figure></center>
+![GEE view after step 1.3 with animation showing layer control](/img/Tenerife-PNV-ACV-task1-3.gif)
+*Figure 3. GEE view after step 1.3 with animation showing layer control*
 
 As you will remember from the field, we know that temperature changes with elevation (decreasing with the [adiabatic lapse rate](https://en.wikipedia.org/wiki/Lapse_rate)). We also know that vegetation in different ecosystem can survive in different conditions, including temperature ranges. For example, [Chapter 6](https://link.springer.com/chapter/10.1007/978-3-319-77255-4_6) of _Vegetation of the Canary Islands_ by del Arco & Rodriguez Delgado (2018) [listed in the Key Readings for this projects in the Fieldtrip Handbook] suggests annual mean temperature limits for the five main ecosystems we discussed in the field. These are summarised in Table 1 here.
 
@@ -135,12 +126,8 @@ Map.addLayer(pnvAMT, pnvVisParam, 'PNV (AMT)')
 ```
   1.4 **Copy and paste** the last two blocks of code (the simple PNV model and the visualisation code) into the GEE Code Editor (at the bottom of all the other code) and **click ‘Run’ in GEE** to run the script.
 
-  <center><figure>
-      <img src="/img/Tenerife-PNV-ACV-task1-4.png"
-           alt="GEE view after step 1.4"
-           width="500">
-      <figcaption>GEE view after step 1.4</figcaption>
-  </figure></center>
+![GEE view after step 1.4](/img/Tenerife-PNV-ACV-task1-4.png)
+*Figure 4. GEE view after step 1.4*
 
 There it is! Our simple PNV model. Adding a legend for this map requires a lot of code (shown in the appendix below if you want to try adding it). The colours used in the map are shown in Table 1, with yellow used to indicate bare ground.
 
@@ -149,10 +136,13 @@ Using the colours in the Table, think about what this simple PNV model shows. Do
 - what about the Monteverde?
 - is the yellow bare ground in the right place?
 
-Hopefully, you'll agree that some ecosystems are mapped quite well with this simple model, but others not so well. Why might that be? What does this simple model not consider.
+Hopefully, you'll agree that some ecosystems are mapped quite well with this simple model, but others not so well. Why might that be? What does this simple model not consider?
 
-You can come back to improve the model later (by adding additional variables), but before that we will see how we can export this map from GEE and then work with it in QGIS to produce a more professional map to include in reports (also adding info about about actual current vegetation).
+You can come back to improve the model later (by adding additional variables), but before that we will see how we can export this this simple PNV map from GEE and then work with it in QGIS to produce a more professional map to include in reports (also adding info about about actual current vegetation).
 
+To export from GEE, we run some code in the code editor as before but then we need to go to the *Tasks* tab to run a task. This tasks exports the data to your Google Drive from where you download the data locally to use in QGIS.
+
+ 1.5 **Copy and paste** the next block of code into the GEE Code Editor (at the bottom of all the other code) and **click ‘Run’ in GEE** to run the script.
 
 ```javascript
 // Export the PNV map https://developers.google.com/earth-engine/guides/exporting_images
@@ -176,8 +166,20 @@ Export.image.toDrive({
 //go to Task tab to save to Drive then download from there
 ```
 
-**explain here how use Task tab, where to find in Drive, download etc. Use gif to help**
+You'll note after running the script with this latest block of code has not added any new data to the map. It has created a Task that we now need to run to export the data to Google Drive to download, as shown in the animated Figure 5.
 
+![Animation running a GEE task to export and download data](/img/Tenerife-PNV-ACV-task1-5.gif)
+*Figure 5. Animation running a GEE task to export and download data*
+
+  1.6 **Run the task** _PNV-AMTfloat_ task in the Task tab, then **download exported data to your local computer** from Google Drive. Use the animation in Figure 5 as a guide, to do the following:
+
+  1. Click 'Run' in the Tasks tab
+  2. In the run dialogue window that appears, check the default values match those in Figure 5 (most important being that the file format is GEO_TIFF), then click 'Run'
+  3. In the Tasks tab, click the down arrow on the running task to see details (it will take up to a minute for the task to complete)
+  4. When the task is complete, a button to 'Open in Drive' will appear - click this button
+  5. Switch to the new browser tab that opens (this should be your Google Drive), find the _PNV-AMTfloat.tif_ file, right-click on the file, then left-click 'Download'
+
+You should now find the file _PNV-AMTfloat.tif_ in your Downloads folder.
 
 ## 2. Import PNV map and create ACV shapefile in QGIS
 
