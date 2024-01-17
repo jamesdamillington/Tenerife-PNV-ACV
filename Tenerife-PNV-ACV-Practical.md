@@ -210,9 +210,9 @@ _Figure 6. Opening raster data in a new QGIS project_
 
   2.6 **Add the simple PNV map as a Layer in QGIS** by clicking Layer -> Add Layer -> Add Raster Layer then selecting _PNV-AMTfloat.tif_. A greyscale version of your simple PNV map should appear in the main data window.
 
-Great! We've imported the raster data. It's important you now **save your project** so that you can return to your work in future and continue where you left off, with all the data imported and visualised as you want.
+Great! We've imported the raster data. It's important you now **save your project** (as a `.qmz` file) so that you can return to your work in future and continue where you left off, with all the data imported and visualised as you want.
 
-  2.7 **Save your project** byt clicking Project -> Save
+  2.7 **Save your project** by clicking Project -> Save
 
 When the raster is initially imported, it comes with no visualisation metadata and QGIS just uses a linear greyscale to visualise the PNV categories. We can do better than this.
 
@@ -244,7 +244,7 @@ _Figure 8. Adding XYZ tiles as layers in QGIS_
 
   2.10 **Add Open Street Map layer** by right-clicking on OpenStreetMap in the XYZ Tiles folder in the QGIS browser, then click Add Layer to Project. In the Layers pane, drag-and-drop the newly added OpenStreetMap layer to the bottom, so that the PNV map is visible on top
 
-This Open Street Map layer is available in QGIS by default. Other context layers are possible, but we need to add connections to them first [as described in this guide](https://opensourceoptions.com/how-to-add-google-satellite-imagery-and-google-maps-to-qgis/). For example, to add a Google Satellite Imagery layer, we need to add a connection to the following URL: https[]()://www.google.cn/maps/vt?lyrs=s@189&gl=cn&x={x}&y={y}&z={z}
+This Open Street Map layer is available in QGIS by default. Other context layers are possible, but we need to add connections to them first [as described in this guide](https://opensourceoptions.com/how-to-add-google-satellite-imagery-and-google-maps-to-qgis/). For example, to add a Google Satellite Imagery layer, we need to add a connection to the following URL: `https://www.google.cn/maps/vt?lyrs=s@189&gl=cn&x={x}&y={y}&z={z}`
 
   2.11 **Create an XYZ Connection to Google Satellite imagery** as follows:
   - right-click _XYZ Tiles_ in the QGIS browser
@@ -254,6 +254,8 @@ This Open Street Map layer is available in QGIS by default. Other context layers
   - click OK
 
 Then add the Google Satellite layer to the project as you did in Step 2.10 for OpenStreetMap. Drag-and-drop layers to change the order in which they are shown on the map (e.g. put Google Satellite at the bottom).
+
+**Save your project!**
 
 ## 3. Create shapefile and digitize in QGIS
 
