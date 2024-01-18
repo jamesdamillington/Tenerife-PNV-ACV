@@ -272,11 +272,13 @@ _Figure 9. Creating a new shapefile in QGIS_
   - select *Polygon* as Geometry Type
   - add a *New Field* (using Name: Land Use) then click *Add to Fields List* then click OK
 
-This should have created four new files in your working directory, with names as your provided above (e.g. *tenerife-land-use*) and suffixes .shp, .shx, .dbf and .qix. Despite creating four files on disc, this actually counts as only one shapefile! We don't need to worry about the multiple files on disc as long as we work with the shapefile from within QGIS.
+This should have created four new files in your working directory, with names as your provided above (e.g. *tenerife-land-use*) and suffixes .shp, .shx, .dbf and .qix. Despite creating four files on disc, this actually counts as only one shapefile! We don't need to worry about the multiple files on disk as long as we work with the shapefile from within QGIS.
+
+If the new shapefile has not been added to your list of layers (i.e. is not visible in the bottom left pane), add it to the project by going to the *Project Home* folder in the Browser pane, right-click then **Add Layer to Project**.  
 
 Now that we have created the new shapefile we can start adding information to it - specifically, by [digitizing (drawing) polygons and adding accompanying attribute data](https://docs.qgis.org/3.28/en/docs/user_manual/working_with_vector/editing_geometry_attributes.html#sec-edit-existing-layer). The steps to digitize polygons are illustrated by the animation in Figure 10.
 
-![Digitizing polygons in QGIS](img/Tenerife-PNV-ACV-step3-1.gif)
+![Digitizing polygons in QGIS](img/Tenerife-PNV-ACV-step3-2.gif)
 _Figure 10. Digitizing polygons in QGIS_
 
 To facilitate the digitization of polygons, it is useful to [enable snapping](https://docs.qgis.org/3.28/en/docs/user_manual/working_with_vector/editing_geometry_attributes.html#snapping-and-digitizing-options).
@@ -332,28 +334,67 @@ I suggest you could digitize at a scale of 1:100,000 (1:50,000 max). This doesn'
 
 ## 4. Create a QGIS Layout for a professional map
 
-https://docs.qgis.org/3.28/en/docs/user_manual/print_composer/index.html
+In QGIS we can use [the Layouts feature](https://docs.qgis.org/3.28/en/docs/user_manual/print_composer/index.html) to create professional-looking maps to and print or save them as image (or PDF) to include in your reports and presentations. We'll look at how to do that now before potentially going back to GEE to see how we could improve our simple PNV map.
 
-Video section 3: https://emckclac-my.sharepoint.com/:v:/g/personal/k1076631_kcl_ac_uk/EaBzUDV-4lpKiPefAh-pA6sByWx8C5LRVUWfmnvJv3xDEA?e=7cocw1
+The [QGIS documentation on Layouts](https://docs.qgis.org/3.28/en/docs/user_manual/print_composer/index.html) will be useful and a video demonstrating the steps taken in this section is available on KEATS (and via [this link](https://media.kcl.ac.uk/media/TenerifeVeg-Prac23-24-Section4/1_5ibhol3b) - King's login required). Hopefully the instructions below will be clear, but the video may help where you are uncertain.
 
+  4.1 **Create a new Layout** by
+  - go to Project menu
+  - click New Print Layout
+  - enter a sensible Name
+  - click OK
 
-Project -> New Print Layout -> Name -> OK
+This should create a new drawing canvas in a new window. As shown in [the video on KEATS](https://media.kcl.ac.uk/media/TenerifeVeg-Prac23-24-Section4/1_5ibhol3b) we can add various elements to the canvas, including [the map](https://docs.qgis.org/3.28/en/docs/user_manual/print_composer/composer_items/composer_map.html#)  itself, [a legend](https://docs.qgis.org/3.28/en/docs/user_manual/print_composer/composer_items/composer_legend.html) for the map, a [scale bar](https://docs.qgis.org/3.28/en/docs/user_manual/print_composer/composer_items/composer_scale_bar.html), a [north arrow](https://docs.qgis.org/3.28/en/docs/user_manual/print_composer/composer_items/composer_image.html#the-north-arrow-item), and [text](https://docs.qgis.org/3.28/en/docs/user_manual/print_composer/composer_items/composer_label.html) and [shapes](https://docs.qgis.org/3.28/en/docs/user_manual/print_composer/composer_items/composer_shapes.html) (e.g. for title and data source). You will need to experiment with these tools and think for yourself about you want to layout your map. Instructions from some items are suggested below.
 
-Draw Map
-- add grid and zebra frame (or just simple frame)
-- add scale bar
-- north arrow (select from arrows)
+  4.2 **Add a map to the layout** by
+  - click the *Add Map* button from the vertical toolbar on the left of the screen
+  - click-and-drag on the canvas to draw the map in the location and size/shape you want
 
-Add legend
-- remove unecessary items
-- add title
+  4.3 **Add a grid and frame**
+  - ensure the map is selected and go to the *Item Properties* tab in the lower-right pane
+  - scroll down to grid, click drop-down arrow, then green plus button, then select the grid in the list and click Modify Grid
+  - set the interval for the spacing of the grid lines (by default this is in the units of the map projection, which for EPSG 4326 is decimal degrees)
+  - change the colour of the lines if desired (select from *line style*)
+  - add coordinates by checking the box for Draw Coordinates (change orientation of coordinates if desired)
+  - add a frame from the choices if desired  
 
-Add map title
-- rectangle with multiple text boxes
+  4.4 **Add a scale bar and north arrow**
+  - click the *Add Scale Bar* button from the vertical toolbar on the left of the screen
+  - click-and-drag on the canvas to draw the scale bar in the location and size/shape you want
+  - set units and symbology as desired in the *Item Properties* tab
+  - add a background if needed
+  - repeat for north arrow (select which version you like from the arrows)
 
+  4.5 **Add a legend**
+  - click the *Add Legend* button from the vertical toolbar on the left of the screen
+  - click-and-drag on the canvas to draw the legend in the location and size/shape you want
+  - uncheck auto-update to enable manual editing
+  - select unnecessary layers (e.g. Google Satellite) and click red minus sign to remove from the legend
+  - hide layer names by right-click the layer name and click Hidden
+  - add a Legend Title
+  - add a frame around the legend
 
+Remember to **save your layout**. The layout is not saved by default when you save the Project. Saving the layout means when you come back to your project you can continue editing. You can save multiple layouts if you want to create different maps (e.g. of different locations, different combinations of data layers, etc.)
+
+These are just some of the things you can do. You could also try other things like adding an inset map. Aside the ['official' QGIS tutorial](https://docs.qgis.org/3.28/en/docs/training_manual/map_composer/map_composer.html) there are lots of other resources online, including [text tutorials](https://www.qgistutorials.com/en/docs/3/making_a_map.html) and [videos](https://youtu.be/LFJGLaH4Tvg?si=8dlRpvyPFV0XsY5z).  
+
+Finally, we need to export our map to an image file so that we can insert it into a report or presentation. This is shown in [the video from 18:03](https://media.kcl.ac.uk/media/TenerifeVeg-Prac23-24-Section4/1_5ibhol3b?st=1083).
+
+  4.6 **Export your map layout as image**
+  - click the Export as Image button on the toolbar
+  - select your desired location to save the new image (by default this should be your working directory)
+  - provide a sensible file name
+  - click Save
+  - pick your export options (the defaults are usually fine, 300dpi is a good resolution)
 
 ## 5. Improve PNV and ACV maps
+
+Temperature is an important determinant of vegetation in a region, but as we discussed in the field, so is precipitation. We could try to improve our simple PNV map by including precipitation in the model.
+
+we could try using precipitation data from WorldClim
+
+
+
 
 ## References
 
