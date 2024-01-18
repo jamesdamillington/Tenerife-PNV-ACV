@@ -393,7 +393,78 @@ Temperature is an important determinant of vegetation in a region, but as we dis
 
 we could try using precipitation data from WorldClim
 
+```javascript
+// Select the band for annual precipitation (bio12)
+var annPptn = worldClim.select('bio12');
 
+// Define visualization parameters for the annual precipitation layer
+var apptnVisParam = {bands: ["bio12"],  min: 50,  max: 1200, palette: ['#f1eef6','#045a8d']};
+
+// Add the annual precipitation layer to the map
+Map.addLayer(annPptn, apptnVisParam, 'Ann. Precip.');
+```
+
+However we can see that this does not capture the influence of tradewinds and topography well. We know these result in wetter conditions on the north dside of the island, and particularly in the north east
+
+[A better precipiration map](https://docs.google.com/presentation/d/1dKnV-5zDE-7cOsYW1ve8olGE7MxAYzKetwJTrWafnAo/edit#slide=id.g29ec4ce47d8_0_1213), taking account of wind-blown moisture, is provided by Mark Mulligan's WaterWorld model. James has uploaded this as a GEE asset which you should be able to access
+
+```javascript
+// Get Mark Mulligan's wind-corrected rainfall map
+// See https://docs.google.com/presentation/d/1dKnV-5zDE-7cOsYW1ve8olGE7MxAYzKetwJTrWafnAo/edit#slide=id.g29ec4ce47d8_0_1213
+var wcAP = ee.Image('projects/ee-jamesmillington/assets/SumPrec_Tenerife_WaterWorld');
+
+Map.addLayer(wcAP, {min: 50,  max: 1200, palette: ['#f1eef6','#045a8d']},  'Wind Cor. Ann. Precip.');
+```
+
+
+```javascript
+//combine AMT and wcAP to improve the model
+var pnvAMTwcAP = ee.Image(1).clip(tenerife)
+          .where(annMeanTemp.gt(19).and(annMeanTemp.lte(35)), 1)
+          .where(annMeanTemp.gt(18).and(annMeanTemp.lte(19)), 2)
+          .where(annMeanTemp.gt(15).and(annMeanTemp.lte(18)).and(wcAP.lte(500)), 2)
+          .where(annMeanTemp.gt(15).and(annMeanTemp.lte(18)).and(wcAP.gt(500)), 3)
+          .where(annMeanTemp.gt(13).and(annMeanTemp.lte(15)).and(wcAP.gt(500)), 3)
+          .where(annMeanTemp.gt(13).and(annMeanTemp.lte(15)).and(wcAP.lte(500)), 4)
+          .where(annMeanTemp.gt(11).and(annMeanTemp.lte(13)), 4)
+          .where(annMeanTemp.gt(6).and(annMeanTemp.lte(11)), 5)
+          .where(annMeanTemp.gt(35).or(annMeanTemp.lte(6)), 0);
+
+Map.addLayer(pnvAMTwcAP, pnvVisParam, 'PNV (AMT & wcAP)');
+```
+
+Students to think about how this code works. Where did the value of 500 come from? is this appropriate?
+
+Think about other drivers of PNV you might add and explore data available on the Earth Engine Catalogue
+
+While in Tenerife we also saw the influence of fire on current vegetation. Maybe this could also be included in a map of current vegetation.
+
+For example to include fire from MODIS terra
+
+```javascript
+//get MODIS Daily Fire https://developers.google.com/earth-engine/datasets/catalog/MODIS_061_MOD14A1
+//for filtered time period and location
+var fireTerra = ee.ImageCollection("MODIS/061/MOD14A1")
+  .filter(ee.Filter.date('2023-07-15', '2023-11-11'))
+  .filterBounds(ee.Geometry.Point([lon,lat]));
+
+//could add code here to also load and use Aqua data https://developers.google.com/earth-engine/datasets/catalog/MODIS_061_MYD14A1#description
+//var fire_aqua = ee.ImageCollection("MODIS/061/MYD14A1")
+
+// select FireMask band only (values 7-9 indicate fire)
+var fireMaskTerra = fireTerra.select('FireMask')
+
+//get the maximum value for each day
+fireMaskTerra = fireMaskTerra.max().clip(tenerife)
+
+//create binary map of only nominal confidence or higher
+var fire = ee.Image(0).clip(tenerife)
+  .where(fireMaskTerra.gt(7),1);
+
+Map.addLayer(fire, {min: 0, max: 1}, 'Fire');
+```
+
+Think about how you could add a conditional statement to the code above to combine fire as a PNV class
 
 
 ## References
