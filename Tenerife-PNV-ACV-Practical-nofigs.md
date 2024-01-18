@@ -1,6 +1,8 @@
 # Potential Natural & Actual Current Vegetation of Tenerife
 _Practical, 22 January 2024 with [james.millington@kcl.ac.uk](mailto:james.millington@kcl.ac.uk)_
 
+**Note: this version created for pdf has no figures and may vary slightly from the online version**
+
 ## 0. Introduction
 
 While in Tenerife we visited multiple locations to see how vegetation varied across the island, considering the physical and human drivers of what influences both the potential natural vegetation (PNV) but also the actual current vegetation (ACV) on the island. In this practical we will use Google Earth Engine (GEE) and QGIS to create an initial simple map of PNV and ACV. As well as showing you how to use these tools to produce a professional map based on secondary data and your observations in the field, the practical will also help you to think about how to improve the simple map for your report (should you chose the Vegetation Coursework 2 Question – see the fieldtrip handbook).
@@ -15,9 +17,6 @@ By the end of this practical you should have:
 If you have time you might also have experimented with how you could improve the initial outputs from 1 & 2 to produce an improved map for your report.
 
 These objectives are laid out in the next five sections of this document, along with accompanying videos (see KEATS). You should aim to finish sections 1-4 in the timetabled practical, to produce a map that looks something like Figure 1 (which is a rough map and I would expect better in your report, should you choose the Vegetation Question for Coursework 2).
-
-![A rough map produced by the end of section 4](/img/Tenerife-PNV-ACV-MyLayout.png)
-*Figure 1. A rough map produced by the end of section 4*
 
 You should then pursue improvements in the map (improving the digitization and layout and possibly using section 5) in any remaining time or after the practical while working on your report.
 
@@ -47,8 +46,6 @@ Map.addLayer(tenerife, {color: 'green',}, 'Tenerife')               //add the GE
 ```
 After running the code, GEE should look like Figure 2.
 
-![GEE view after task 1.2](/img/Tenerife-PNV-ACV-task1-2.png)
-*Figure 2. GEE view after task 1.2*
 
 See if you can understand what the code here does. Loading a polygon of the boundary of Tenerife will be useful below to work only with data for Tenerife. Much of the data supplied in the [Earth Engine Data Catalog](https://developers.google.com/earth-engine/datasets) is global in extent, and it's much quicker to clip the data just to work with the smaller region we want.
 
@@ -80,9 +77,6 @@ Map.addLayer(annMeanTemp, tempVisParam, 'Ann. Mean Temp.');
 After clipping the _WorldClim_ data to the extent of Tenerife, this code selects the _bio01_ band which contains the annual mean temperature variable (see the [WorldClim Earth Engine Data Catalog webpage](https://developers.google.com/earth-engine/datasets/catalog/WORLDCLIM_V1_BIO#bands) for more details) and puts this in a new layer called `annMeanTemp`. Then the code sets some visualisation parameters ('make the layer red where 0 is light red and 25 is dark red') and the last line of code adds the layer to the map with the visualisation.
 
 Once the code has been run, GEE should look like Figure 3. Remember that you can modify the visibility of layers that we are adding to the map, as shown in the animation.  
-
-![GEE view after task 1.3 with animation showing layer control](/img/Tenerife-PNV-ACV-task1-3.gif)
-*Figure 3. GEE view after task 1.3 with animation showing layer control*
 
 As you will remember from the field, we know that temperature changes with elevation (decreasing with the [adiabatic lapse rate](https://en.wikipedia.org/wiki/Lapse_rate)). We also know that vegetation in different ecosystem can survive in different conditions, including temperature ranges. For example, [Chapter 6](https://link.springer.com/chapter/10.1007/978-3-319-77255-4_6) of _Vegetation of the Canary Islands_ by del Arco & Rodriguez Delgado (2018) [listed in the Key Readings for this projects in the Fieldtrip Handbook] suggests annual mean temperature limits for the five main ecosystems we discussed in the field. These are summarised in Table 1 here.
 
@@ -135,9 +129,6 @@ Map.addLayer(pnvAMT, pnvVisParam, 'PNV (AMT)')
 ```
   1.4 **Copy and paste** the last two blocks of code (the simple PNV model and the visualisation code) into the GEE Code Editor (at the bottom of all the other code) and **click ‘Run’ in GEE** to run the script.
 
-![GEE view after task 1.4](/img/Tenerife-PNV-ACV-task1-4.png)
-*Figure 4. GEE view after task 1.4*
-
 There it is! Our simple PNV model. Adding a legend for this map requires a lot of code (shown in the appendix below if you want to try adding it). The colours used in the map are shown in Table 1, with yellow used to indicate bare ground.
 
 **Save your script** by clicking the Save button at the top of the script pane.
@@ -179,9 +170,6 @@ Export.image.toDrive({
 
 You'll note after running the script with this latest block of code has not added any new data to the map. It has created a Task that we now need to run to export the data to Google Drive to download, as shown in the animated Figure 5.
 
-![Animation running a GEE task to export and download data](/img/Tenerife-PNV-ACV-task1-5.gif)
-*Figure 5. Animation running a GEE task to export and download data*
-
   1.6 **Run the task** _PNV-AMTfloat_ task in the Task tab, then **download exported data to your local computer** from Google Drive. Use the animation in Figure 5 as a guide, to do the following:
 
   1. Click 'Run' in the Tasks tab
@@ -214,9 +202,6 @@ You can read about working with project files in [the QGIS documentation](https:
 
 The next three tasks are shown by the animation in Figure 6.
 
-![Opening Raster Data in a New QGIS Project](img/Tenerife-PNV-ACV-step2-1.gif)
-*Figure 6. Opening raster data in a new QGIS project*
-
   Task 2.4 **Save your new project** in your working directory. Click Project -> Save As then navigate to your working directory and give your project a sensble name, then click Save. You should see a Project Home folder is now visible in the QGIS Browser pane.  
 
   Task 2.5 **Move the simple PNV GeoTiff file we exported from GEE (named _PNV-AMTfloat.tif_) to the working directory** using the Windows File Explorer (or Mac Finder). This file is likely still in you Downloads folder.
@@ -235,9 +220,6 @@ We want a unique colour for each vegetation type and a legend which communicates
 
 The animation in Figure 7 shows the tasks we take to load the style file we just downloaded.   
 
-![Loading a style file for a layer in QGIS](img/Tenerife-PNV-ACV-step2-2.gif)
-*Figure 7. Loading a style file for a layer in QGIS*
-
   Task 2.9 **Load the style for the PNV raster layer**. Do this by:
   - right-click the _PNV-AMTfloat_ layer
   - click Properties (bottom of menu)
@@ -251,9 +233,6 @@ The animation in Figure 7 shows the tasks we take to load the style file we just
 This looks much better. Note that the legend for the colours we have used are now showing in the layers panel (in not, click the drop-down arrow for the _PNV-AMTfloat_ layer).
 
 Finally, before we move on to digitzation, let's see how we can enable some background contextual layers. These include Open Street Map and Google Satellite imagery to support visualisation and digitization of land uses and current vegetation. The tasks to do this are shown by the animation in Figure 8.
-
-![Adding XYZ tiles as layers in QGIS](img/Tenerife-PNV-ACV-step2-3.gif)
-*Figure 8. Adding XYZ tiles as layers in QGIS*
 
   Task 2.10 **Add Open Street Map layer** by right-clicking on OpenStreetMap in the XYZ Tiles folder in the QGIS browser, then click Add Layer to Project. In the Layers pane, drag-and-drop the newly added OpenStreetMap layer to the bottom, so that the PNV map is visible on top
 
@@ -276,9 +255,6 @@ A video demonstrating the tasks taken in this section is available on KEATS (and
 
 To map current vegetation and land use we can manually delineate areas by digitizing [polygon features](http://wiki.gis.com/wiki/index.php/Polygon_Feature_Class). First we need to [create a new shapefile layer](https://docs.qgis.org/3.28/en/docs/user_manual/managing_data_source/create_layers.html#creating-a-new-shapefile-layer) to contain the polgyons and their attribute data (i.e. the land use or vegetation types that correspond to each polygon). The tasks to do this are shown by the animation in Figure 9.
 
-![Creating a new shapefile in QGIS](img/Tenerife-PNV-ACV-step3-1.gif)
-*Figure 9. Creating a new shapefile in QGIS*
-
   Task 3.1 **Create a new shapefile** as follows:
   - right-click *Project Home* in the Browser pane then select *New* then *Shapefile*
   - change the File Name from *new_layer.shp* to something more intuitive (e.g. *tenerife-land-use.shp*) - DO NOT delete the entire path, just edit the *new_layer* bit
@@ -290,9 +266,6 @@ This should have created four new files in your working directory, with names as
 If the new shapefile has not been added to your list of layers (i.e. is not visible in the bottom left pane), add it to the project by going to the *Project Home* folder in the Browser pane, right-click then **Add Layer to Project**.  
 
 Now that we have created the new shapefile we can start adding information to it - specifically, by [digitizing (drawing) polygons and adding accompanying attribute data](https://docs.qgis.org/3.28/en/docs/user_manual/working_with_vector/editing_geometry_attributes.html#sec-edit-existing-layer). The tasks to digitize polygons are illustrated by the animation in Figure 10.
-
-![Digitizing polygons in QGIS](img/Tenerife-PNV-ACV-step3-2.gif)
-*Figure 10. Digitizing polygons in QGIS*
 
 To facilitate the digitization of polygons, it is useful to [enable snapping](https://docs.qgis.org/3.28/en/docs/user_manual/working_with_vector/editing_geometry_attributes.html#snapping-and-digitizing-options).
 
@@ -483,7 +456,8 @@ var fireTerra = ee.ImageCollection("MODIS/061/MOD14A1")
   .filter(ee.Filter.date('2023-07-15', '2023-11-11'))
   .filterBounds(ee.Geometry.Point([lon,lat]));
 
-//could add code here to also load and use MODIS Aqua data https://developers.google.com/earth-engine/datasets/catalog/MODIS_061_MYD14A1#description
+//could add code here to also load and use MODIS Aqua data
+//https://developers.google.com/earth-engine/datasets/catalog/MODIS_061_MYD14A1
 
 // select FireMask band only (values 7-9 indicate fire as detailed in the Bands info)
 var fireMaskTerra = fireTerra.select('FireMask')
