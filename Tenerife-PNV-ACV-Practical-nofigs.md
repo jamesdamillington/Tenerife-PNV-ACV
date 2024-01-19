@@ -1,30 +1,26 @@
 # Potential Natural & Actual Current Vegetation of Tenerife
 _Practical, 22 January 2024 with [james.millington@kcl.ac.uk](mailto:james.millington@kcl.ac.uk)_
 
-**Note: this version created for pdf has no figures and may vary slightly from the online version**
-
 ## 0. Introduction
 
 While in Tenerife we visited multiple locations to see how vegetation varied across the island, considering the physical and human drivers of what influences both the potential natural vegetation (PNV) but also the actual current vegetation (ACV) on the island. In this practical we will use Google Earth Engine (GEE) and QGIS to create an initial simple map of PNV and ACV. As well as showing you how to use these tools to produce a professional map based on secondary data and your observations in the field, the practical will also help you to think about how to improve the simple map for your report (should you chose the Vegetation Coursework 2 Question – see the fieldtrip handbook).
 
 By the end of this practical you should have:
 
-1. Produced a simple PNV map of Tenerife using GEE;
-2. Imported the simple PNV map into QGIS;
-3. Created a shapefile to overlay the location of ACV;
-4. Created a QGIS 'Layout' from the combination of 1, 2 and 3 to produce a professional map (of the sort that might be included in your report);
+1. Produced a simple PNV map of Tenerife using GEE
+2. Imported the simple PNV map into QGIS
+3. Created a shapefile to overlay the location of ACV
+4. Created a QGIS 'Layout' from the combination of 1, 2 and 3 to produce a professional map (of the sort that might be included in your report)
 
-If you have time you might also have experimented with how you could improve the initial outputs from 1 & 2 to produce an improved map for your report.
+These objectives are laid out in the next four sections of this document, along with accompanying videos (see KEATS). You should aim to finish sections 1-4 by the end of the timetabled practical, to produce a map that looks something like Figure 1 (which is a rough map and I would expect better in your report, should you choose the Vegetation Question for Coursework 2).
 
-These objectives are laid out in the next five sections of this document, along with accompanying videos (see KEATS). You should aim to finish sections 1-4 in the timetabled practical, to produce a map that looks something like Figure 1 (which is a rough map and I would expect better in your report, should you choose the Vegetation Question for Coursework 2).
-
-You should then pursue improvements in the map (improving the digitization and layout and possibly using section 5) in any remaining time or after the practical while working on your report.
+You should then pursue improvements in the map (improving the digitization and layout and possibly using section 5) in any remaining time during the practical or afterwards while working on your report.
 
 ## 1. Creating a simple PNV map with GEE
 
-In Term 1 you should have created a Google Earth Engine account that you then used with Emma Tebbs in the practical with her in Week 2 (see the KEATS message [here](https://keats.kcl.ac.uk/mod/forum/discuss.php?d=610870) if you did not do that – it can take several days for your account to be activated so if you do not already have an account you may have to work with a friend for the GEE parts of this practical). This practical builds on some of the things you did with Emma previously, so you may want to review the instructions for that practical quickly before starting here. For example, see the section _What is Google Earth Engine (GEE)?_ to remind yourself of the GEE basics.
+In Term 1 you should have created a Google Earth Engine account that you then used with Emma Tebbs in the practical in Week 2 (see the KEATS message [here](https://keats.kcl.ac.uk/mod/forum/discuss.php?d=610870) if you did not do that – it can take several days for your account to be activated so if you do not already have an account you may need to work with a friend for the GEE parts of this practical). This practical builds on some of the things you did with Emma previously, so you may want to review the instructions for that practical quickly before starting here. For example, see the section _What is Google Earth Engine (GEE)?_ to remind yourself of the GEE basics.
 
-  Task 1.1 **Open Google Earth Engine** by visiting [https://code.earthengine.google.com/](https://code.earthengine.google.com/) and logging in with your account. **Create a new script** by clicking the red NEW button, selecting *File*, provide a sensible filename and then click OK.  
+  Task 1.1 **Open Google Earth Engine** by visiting [https://code.earthengine.google.com/](https://code.earthengine.google.com/) and logging in with your account. **Create a new script** by clicking the red *NEW* button, selecting *File*, provide a sensible filename, and then click OK.  
 
   Task 1.2 **Copy and paste** the following code into the GEE Code Editor (you can quickly use the copy button in the top-right of the code block below) and **click ‘Run’ in GEE** to run the script.
 
@@ -44,14 +40,12 @@ var poly = filtered.geometry().coordinates().get(8);                //select onl
 var tenerife = ee.Geometry.Polygon(poly);                           //create a polygon GEE recognises from the Tenerife polygon
 Map.addLayer(tenerife, {color: 'green',}, 'Tenerife')               //add the GEE polygon to the map
 ```
-After running the code, GEE should look like Figure 2.
-
 
 See if you can understand what the code here does. Loading a polygon of the boundary of Tenerife will be useful below to work only with data for Tenerife. Much of the data supplied in the [Earth Engine Data Catalog](https://developers.google.com/earth-engine/datasets) is global in extent, and it's much quicker to clip the data just to work with the smaller region we want.
 
 For example, the next block of code reads the [WorldClim](https://developers.google.com/earth-engine/datasets/catalog/WORLDCLIM_V1_BIO#description) data set and immediately <a href="http://wiki.gis.com/wiki/index.php/Clip" target="_blank">'clips'</a> it to the extent of Tenerife.
 
-  1.3 **Copy and paste** the following code into the GEE Code Editor (below the last block of code) and **click ‘Run’ in GEE** to run the script.
+  Task 1.3 **Copy and paste** the following code into the GEE Code Editor (below the last block of code) and **click ‘Run’ in GEE** to run the script.
 
 ```javascript
 // Get and Clip the WorldClim V1 Bioclim dataset using the Tenerife boundary
@@ -72,13 +66,11 @@ var tempVisParam = {
 // Add the layer to the map
 Map.addLayer(annMeanTemp, tempVisParam, 'Ann. Mean Temp.');
 ```
-**Save your script** by clicking the Save button at the top of the script pane.
+**Save your script** by clicking the Save button at the top of the script pane. (Save your work regularly, even if not instructed to do so!)
 
 After clipping the _WorldClim_ data to the extent of Tenerife, this code selects the _bio01_ band which contains the annual mean temperature variable (see the [WorldClim Earth Engine Data Catalog webpage](https://developers.google.com/earth-engine/datasets/catalog/WORLDCLIM_V1_BIO#bands) for more details) and puts this in a new layer called `annMeanTemp`. Then the code sets some visualisation parameters ('make the layer red where 0 is light red and 25 is dark red') and the last line of code adds the layer to the map with the visualisation.
 
-Once the code has been run, GEE should look like Figure 3. Remember that you can modify the visibility of layers that we are adding to the map, as shown in the animation.  
-
-As you will remember from the field, we know that temperature changes with elevation (decreasing with the [adiabatic lapse rate](https://en.wikipedia.org/wiki/Lapse_rate)). We also know that vegetation in different ecosystem can survive in different conditions, including temperature ranges. For example, [Chapter 6](https://link.springer.com/chapter/10.1007/978-3-319-77255-4_6) of _Vegetation of the Canary Islands_ by del Arco & Rodriguez Delgado (2018) [listed in the Key Readings for this projects in the Fieldtrip Handbook] suggests annual mean temperature limits for the five main ecosystems we discussed in the field. These are summarised in Table 1 here.
+As you will remember from the field, we know that temperature changes with elevation (decreasing with the [adiabatic lapse rate](https://en.wikipedia.org/wiki/Lapse_rate)). We also know that vegetation in different ecosystems can survive in different conditions, including temperature ranges. For example, [Chapter 6](https://link.springer.com/chapter/10.1007/978-3-319-77255-4_6) of _Vegetation of the Canary Islands_ by del Arco & Rodriguez Delgado (2018) [listed in the Key Readings for this project in the Fieldtrip Handbook] suggests annual mean temperature limits for the five main ecosystems we discussed in the field. These are summarised in Table 1 here.
 
 *Table 1. Annual mean temperature (&deg;C) limits for Canary Island Ecosystems.* After del Arco & Rodriguez Delgado (2018)
 
@@ -107,9 +99,9 @@ var pnvAMT = ee.Image(1)
 
 See if you can understand how this code is working. `where()` is a GEE function that [performs conditional replacement of values](https://developers.google.com/earth-engine/apidocs/ee-image-where). The first 'argument' in the `where()` call indicates where pixels are that should change (the condition), and the second argument indicates what value they should be given (the replacement). So, for example, `where(annMeanTemp.gt(19), 1)` means _'where you find pixels in the `annMeanTemp` layer with a value greater than 19, replace with a value of 1'_.
 
-That works for _Low Coast Shrub_ which has only a minimum value, but what about where we have both a minimum and maximum? For that we need to use the logical `and` function to create a condition that is both great than (`gt`) one value *and* less than (`lt`) another value. So, `annMeanTemp.gt(6).and(annMeanTemp.lte(11))` is the condition for _High Mtn. Shrub_, which will take the value 5.
+That works for _Low Coast Shrub_ which has only a minimum value, but what about where we have both a minimum and maximum? For that we need to use the logical `and` statement to create a condition that is both greater than (`gt`) one value *and* less than (`lt`) another value. So, `annMeanTemp.gt(6).and(annMeanTemp.lte(11))` is the condition for _High Mtn. Shrub_, and pixels meeting these conditions will be given a value of 5.
 
-Check you can see how multiple `where()` functions are linked together (using `.`) to cover all the ecosystems in Table 1. But notice also on the last line we have a `where()` statement that is not shown in the Table. This is needed for any pixels that are not covered by all the other conditions in the code - specifically, pixels that have an annual mean temperature less than 6&deg;C (we'll assume these are bare... think about where they might occur on Tenerife).
+Check you can see how multiple `where()` functions are linked together (using `.`) to cover all the ecosystems in Table 1. But notice also on the last line we have a `where()` statement that is not shown in the Table. This is needed for any pixels that are not covered by all the other conditions in the code - specifically, pixels that have an annual mean temperature less than 6&deg;C (we'll assume these are bare ground... think about where they might occur on Tenerife).
 
 All these `where()` functions are linked together and the output is saved into a new layer named `pnvAMT` (for potential natural vegetation using annual mean temp.).  
 
@@ -127,7 +119,7 @@ var pnvVisParam = {bands: ['constant'], min: 0, max:5, palette: pnvColours};
 // Add the layer to the map
 Map.addLayer(pnvAMT, pnvVisParam, 'PNV (AMT)')
 ```
-  1.4 **Copy and paste** the last two blocks of code (the simple PNV model and the visualisation code) into the GEE Code Editor (at the bottom of all the other code) and **click ‘Run’ in GEE** to run the script.
+  Task 1.4 **Copy and paste** the last two blocks of code (the simple PNV model and the visualisation code) into the GEE Code Editor (at the bottom of all the other code) and **click ‘Run’ in GEE** to run the script.
 
 There it is! Our simple PNV model. Adding a legend for this map requires a lot of code (shown in the appendix below if you want to try adding it). The colours used in the map are shown in Table 1, with yellow used to indicate bare ground.
 
@@ -140,11 +132,11 @@ Using the colours in the Table think about what this simple PNV model shows. Doe
 
 You might vary the transparency of the layer with satellite imagery beneath to help you with this assessment. Hopefully, you'll agree that some ecosystems are mapped quite well with this simple model, but others not so well. Why might that be? What does this simple model not consider?
 
-You can come back to improve the model later (by adding additional variables), but before that we will see how we can export this this simple PNV map from GEE and then work with it in QGIS to produce a more professional map to include in reports (also adding info about about actual current vegetation).
+You can come back to improve the model later in section 5 (by adding additional variables), but before that we will see how we can export this simple PNV map from GEE and then work with it in QGIS to produce a more professional map to include in reports (also adding info about actual current vegetation).
 
-To export from GEE, we run some code in the code editor as before but then we need to go to the *Tasks* tab to run a task. This tasks exports the data to your Google Drive from where you download the data locally to use in QGIS.
+To export from GEE, we run some code in the code editor as before but then we need to go to the *Tasks* tab to run a task. This task exports the data to your Google Drive from where you download the data locally to use in QGIS.
 
- 1.5 **Copy and paste** the next block of code into the GEE Code Editor (at the bottom of all the other code) and **click ‘Run’ in GEE** to run the script.
+ Task 1.5 **Copy and paste** the next block of code into the GEE Code Editor (at the bottom of all the other code) and **click ‘Run’ in GEE** to run the script.
 
 ```javascript
 // Export the PNV map https://developers.google.com/earth-engine/guides/exporting_images
@@ -168,12 +160,12 @@ Export.image.toDrive({
 //go to Task tab to save to Drive then download from there
 ```
 
-You'll note after running the script with this latest block of code has not added any new data to the map. It has created a Task that we now need to run to export the data to Google Drive to download, as shown in the animated Figure 5.
+You'll note that after running the script with this latest block of code, no new data was added to the map. Rather, this code has created a Task that we now need to run to export the data to Google Drive to download.
 
-  1.6 **Run the task** _PNV-AMTfloat_ task in the Task tab, then **download exported data to your local computer** from Google Drive. Use the animation in Figure 5 as a guide, to do the following:
+  Task 1.6 **Run the task** _PNV-AMTfloat_ task in the Task tab, then **download exported data to your local computer** from Google Drive. Do the following:
 
   1. Click 'Run' in the Tasks tab
-  2. In the run dialogue window that appears, check the default values match those in Figure 5 (most important being that the file format is GEO_TIFF), then click 'Run'
+  2. In the run dialogue window that appears, check the default values match those in Figure 5 (most important being that the file format is *GEO_TIFF*), then click 'Run'
   3. In the Tasks tab, click the down arrow on the running task to see details (it will take up to a minute for the task to complete)
   4. When the task is complete, a button to 'Open in Drive' will appear - click this button
   5. Switch to the new browser tab that opens (this should be your Google Drive), find the _PNV-AMTfloat.tif_ file, right-click on the file, then left-click 'Download'
@@ -186,7 +178,7 @@ You should now find the file _PNV-AMTfloat.tif_ in your Downloads folder.
 
 GEE is excellent for processing large amounts of pre-existing (usually raster) data. However, it is not so good at presenting spatial data and does not provide much functionality for creating new vector data. For those things, Geographic Informations Systems - like QGIS - are much more useful. We'll switch now to use QGIS to add additional information and present the simple PNV map created above (later you can improve the PNV map if you want).
 
-You fill find [the QGIS documentation](https://docs.qgis.org/3.28/en/docs/index.html) useful to review, including a handy guide to the [graphical interface](https://docs.qgis.org/3.28/en/docs/user_manual/introduction/qgis_gui.html) and details on [how to work with raster data](https://docs.qgis.org/3.28/en/docs/user_manual/working_with_raster/index.html).
+You will find [the QGIS documentation](https://docs.qgis.org/3.28/en/docs/index.html) useful to review, including a handy guide to the [graphical interface](https://docs.qgis.org/3.28/en/docs/user_manual/introduction/qgis_gui.html) and details on [how to work with raster data](https://docs.qgis.org/3.28/en/docs/user_manual/working_with_raster/index.html).
 
 A video demonstrating the tasks taken in this section is available on KEATS (and via [this link](https://media.kcl.ac.uk/media/TenerifeVeg-Prac23-34-Section2.mp4/1_jdq37yyo) - King's login required). Hopefully the instructions below will be clear, but the video may help where you are uncertain.
 
@@ -200,15 +192,13 @@ While much of our work in GEE is in the cloud, we will be using QGIS on a local 
 
 You can read about working with project files in [the QGIS documentation](https://docs.qgis.org/3.28/en/docs/user_manual/introduction/project_files.html).
 
-The next three tasks are shown by the animation in Figure 6.
-
   Task 2.4 **Save your new project** in your working directory. Click Project -> Save As then navigate to your working directory and give your project a sensble name, then click Save. You should see a Project Home folder is now visible in the QGIS Browser pane.  
 
   Task 2.5 **Move the simple PNV GeoTiff file we exported from GEE (named _PNV-AMTfloat.tif_) to the working directory** using the Windows File Explorer (or Mac Finder). This file is likely still in you Downloads folder.
 
   Task 2.6 **Add the simple PNV map as a Layer in QGIS** by clicking Layer -> Add Layer -> Add Raster Layer then selecting _PNV-AMTfloat.tif_. A greyscale version of your simple PNV map should appear in the main data window.
 
-Great! We've imported the raster data. It's important you now **save your project** (as a `.qmz` file) so that you can return to your work in future and continue where you left off, with all the data imported and visualised as you want.
+Great! We've imported the raster data. It's important you now **save your project** (as a `.qgz` file) so that you can return to your work in future and continue where you left off, with all the data imported and visualised as you want.
 
   Task 2.7 **Save your project** by clicking Project -> Save
 
@@ -217,8 +207,6 @@ When the raster is initially imported, it comes with no visualisation metadata a
 We want a unique colour for each vegetation type and a legend which communicates their correspondence. Doing this in QGIS this is called [band rendering](https://docs.qgis.org/3.28/en/docs/user_manual/working_with_raster/raster_properties.html#band-rendering) and can be done manually yourself or by using a [Style file](https://docs.qgis.org/3.28/en/docs/user_manual/introduction/general_tools.html?highlight=style%20file#save-and-share-layer-properties) that someone else has made. We will take the latter approach here, loading a Style file James made for the main ecosystem types we visited in Tenerife (and that are present in our simple PNV map).  
 
   Task 2.8 **Download _tenerife_pnv.qml_ from KEATS and move it to your working directory**
-
-The animation in Figure 7 shows the tasks we take to load the style file we just downloaded.   
 
   Task 2.9 **Load the style for the PNV raster layer**. Do this by:
   - right-click the _PNV-AMTfloat_ layer
@@ -230,9 +218,9 @@ The animation in Figure 7 shows the tasks we take to load the style file we just
   - click Open
   - click OK
 
-This looks much better. Note that the legend for the colours we have used are now showing in the layers panel (in not, click the drop-down arrow for the _PNV-AMTfloat_ layer).
+This looks much better. Note that the legend for the colours we have used are now showing in the layers panel (if not, click the drop-down arrow for the _PNV-AMTfloat_ layer).
 
-Finally, before we move on to digitzation, let's see how we can enable some background contextual layers. These include Open Street Map and Google Satellite imagery to support visualisation and digitization of land uses and current vegetation. The tasks to do this are shown by the animation in Figure 8.
+Finally, before we move on to digitzation, let's see how we can enable some background contextual layers. These include Open Street Map and Google Satellite imagery to support visualisation and digitization of land uses and current vegetation.
 
   Task 2.10 **Add Open Street Map layer** by right-clicking on OpenStreetMap in the XYZ Tiles folder in the QGIS browser, then click Add Layer to Project. In the Layers pane, drag-and-drop the newly added OpenStreetMap layer to the bottom, so that the PNV map is visible on top
 
@@ -253,7 +241,7 @@ Then add the Google Satellite layer to the project as you did in Task 2.10 for O
 
 A video demonstrating the tasks taken in this section is available on KEATS (and via [this link](https://media.kcl.ac.uk/media/TenerifeVeg-Prac23-24-Section3/1_531y4k2m) - King's login required). Hopefully the instructions below will be clear, but the video may help where you are uncertain.
 
-To map current vegetation and land use we can manually delineate areas by digitizing [polygon features](http://wiki.gis.com/wiki/index.php/Polygon_Feature_Class). First we need to [create a new shapefile layer](https://docs.qgis.org/3.28/en/docs/user_manual/managing_data_source/create_layers.html#creating-a-new-shapefile-layer) to contain the polgyons and their attribute data (i.e. the land use or vegetation types that correspond to each polygon). The tasks to do this are shown by the animation in Figure 9.
+To map current vegetation and land use we can manually delineate areas by digitizing [polygon features](http://wiki.gis.com/wiki/index.php/Polygon_Feature_Class). First we need to [create a new shapefile layer](https://docs.qgis.org/3.28/en/docs/user_manual/managing_data_source/create_layers.html#creating-a-new-shapefile-layer) to contain the polgyons and their attribute data (i.e. the land use or vegetation types that correspond to each polygon).
 
   Task 3.1 **Create a new shapefile** as follows:
   - right-click *Project Home* in the Browser pane then select *New* then *Shapefile*
@@ -261,11 +249,11 @@ To map current vegetation and land use we can manually delineate areas by digiti
   - select *Polygon* as Geometry Type
   - add a *New Field* (using Name: Land Use) then click *Add to Fields List* then click OK
 
-This should have created four new files in your working directory, with names as your provided above (e.g. *tenerife-land-use*) and suffixes .shp, .shx, .dbf and .qix. Despite creating four files on disc, this actually counts as only one shapefile! We don't need to worry about the multiple files on disk as long as we work with the shapefile from within QGIS.
+This should have created four new files in your working directory, with names as your provided above (e.g. *tenerife-land-use*) and suffixes .shp, .shx, .dbf and .qix. Despite creating four files on disk, this actually counts as only one shapefile! We don't need to worry about the multiple files on disk as long as we work with the shapefile from within QGIS.
 
 If the new shapefile has not been added to your list of layers (i.e. is not visible in the bottom left pane), add it to the project by going to the *Project Home* folder in the Browser pane, right-click then **Add Layer to Project**.  
 
-Now that we have created the new shapefile we can start adding information to it - specifically, by [digitizing (drawing) polygons and adding accompanying attribute data](https://docs.qgis.org/3.28/en/docs/user_manual/working_with_vector/editing_geometry_attributes.html#sec-edit-existing-layer). The tasks to digitize polygons are illustrated by the animation in Figure 10.
+Now that we have created the new shapefile we can start adding information to it - specifically, by [digitizing (drawing) polygons and adding accompanying attribute data](https://docs.qgis.org/3.28/en/docs/user_manual/working_with_vector/editing_geometry_attributes.html#sec-edit-existing-layer).
 
 To facilitate the digitization of polygons, it is useful to [enable snapping](https://docs.qgis.org/3.28/en/docs/user_manual/working_with_vector/editing_geometry_attributes.html#snapping-and-digitizing-options).
 
@@ -274,7 +262,7 @@ To facilitate the digitization of polygons, it is useful to [enable snapping](ht
   - move the new toolbar if desired by drag-and-drop
   - click the magnet icon to enable snapping
 
-Now we can start to draw our polygons. By default, all layers in QGIS are read-only. To edit the shapefile we made above we need to _Toggle Editing_ before then adding polygon features.
+Now we can start to draw our polygons. By default, all layers in QGIS are read-only. To edit the shapefile we made above we need to _Toggle Editing_, before then adding polygon features.
 
   Task 3.3 **Digitize polygon features** by
   - right-click the shapefile layer to add polygons to (in this case *tenerife-land-use*) then click Toggle Editing (new icons will become available on the toolbar)
@@ -292,7 +280,7 @@ To draw polygons:
 - if you need to move the map ('pan') while digitizing, hold the spacebar on the keyboard and move your mouse.
 
 Once a polygon is completed, add attribute data:
-- leave id box empty (ID will be autogenerated)
+- leave id box empty (polygon IDs will be autogenerated)
 - type the name of the land use or vegetation class you have just created (e.g. Agriculture) in the Land Use field
 - click OK
 
@@ -316,16 +304,16 @@ Note that the new colours and class names should now appear in the Layer legend 
 
 To add more polygons repeat the tasks as above. Re-using the same land use class names for new polygons will ensure consistent symbology and legend.
 
-I suggest you could digitize at a scale of 1:100,000 (1:50,000 max). This doesn't need to be a super-fine-scale map but you could be more careful than I am in the videos above. The raster data are at 1 km resolution (each pixel is 1 km per side) and this is about the Minimum Mapping Unit (MMU) that your digitization should use. [The MMU is](https://www.esri.com/about/newsroom/insider/a-question-of-scale-resolution-and-mmu/):
+I suggest you could digitize at a scale of around 1:100,000 (or 1:50,000 max). This doesn't need to be a super-fine-scale map but you need to be more careful than I am in the videos above (which I made quickly just to demonstrate the technical method). The raster data are at 1 km resolution (each pixel is 1 km per side) which is approximately the Minimum Mapping Unit (MMU) that your digitization should use. [The MMU is](https://www.esri.com/about/newsroom/insider/a-question-of-scale-resolution-and-mmu/):
 > the specific size of the smallest feature that is being reliably mapped in your map.
 
-Thus, you should not create any polygons smaller than 1 sq km and ideally most will be much larger. For consistency, the edges of polygons could follow the boundaries of pixels.
+Thus, you should not create any polygons smaller than 1 sq km and ideally most will be much larger. For consistency, the edges of polygons could follow the boundaries of pixels. You might also learn how to clip the extent of polygons to the coastline of Tenerife using another shapefile.
 
 You could experiment with changing the transparency of the raster layer so that you can view it along with the satellite imagery when digitizing (right-click the raster layer, click Properties, select the Transparency layer on the left, use the slider to change the transparency of the raster layer).
 
 ## 4. Create a QGIS Layout for a professional map
 
-In QGIS we can use [the Layouts feature](https://docs.qgis.org/3.28/en/docs/user_manual/print_composer/index.html) to create professional-looking maps to and print or save them as image (or PDF) to include in your reports and presentations. We'll look at how to do that now before potentially going back to GEE to see how we could improve our simple PNV map.
+In QGIS we can use [the Layouts feature](https://docs.qgis.org/3.28/en/docs/user_manual/print_composer/index.html) to create professional-looking maps to print or save them as an image (or PDF) to include in your reports and presentations. We'll look at how to do that now before potentially going back to GEE to see how we could improve our simple PNV map (in section 5).
 
 The [QGIS documentation on Layouts](https://docs.qgis.org/3.28/en/docs/user_manual/print_composer/index.html) will be useful and a video demonstrating the tasks taken in this section is available on KEATS (and via [this link](https://media.kcl.ac.uk/media/TenerifeVeg-Prac23-24-Section4/1_5ibhol3b) - King's login required). Hopefully the instructions below will be clear, but the video may help where you are uncertain.
 
@@ -335,7 +323,7 @@ The [QGIS documentation on Layouts](https://docs.qgis.org/3.28/en/docs/user_manu
   - enter a sensible Name
   - click OK
 
-This should create a new drawing canvas in a new window. As shown in [the video on KEATS](https://media.kcl.ac.uk/media/TenerifeVeg-Prac23-24-Section4/1_5ibhol3b) we can add various elements to the canvas, including [the map](https://docs.qgis.org/3.28/en/docs/user_manual/print_composer/composer_items/composer_map.html#)  itself, [a legend](https://docs.qgis.org/3.28/en/docs/user_manual/print_composer/composer_items/composer_legend.html) for the map, a [scale bar](https://docs.qgis.org/3.28/en/docs/user_manual/print_composer/composer_items/composer_scale_bar.html), a [north arrow](https://docs.qgis.org/3.28/en/docs/user_manual/print_composer/composer_items/composer_image.html#the-north-arrow-item), and [text](https://docs.qgis.org/3.28/en/docs/user_manual/print_composer/composer_items/composer_label.html) and [shapes](https://docs.qgis.org/3.28/en/docs/user_manual/print_composer/composer_items/composer_shapes.html) (e.g. for title and data source). You will need to experiment with these tools and think for yourself about you want to layout your map. Instructions from some items are suggested below.
+This should create a new drawing canvas in a new window. As shown in [the video on KEATS](https://media.kcl.ac.uk/media/TenerifeVeg-Prac23-24-Section4/1_5ibhol3b) we can add various elements to the canvas, including [the map](https://docs.qgis.org/3.28/en/docs/user_manual/print_composer/composer_items/composer_map.html#)  itself, [a legend](https://docs.qgis.org/3.28/en/docs/user_manual/print_composer/composer_items/composer_legend.html) for the map, a [scale bar](https://docs.qgis.org/3.28/en/docs/user_manual/print_composer/composer_items/composer_scale_bar.html), a [north arrow](https://docs.qgis.org/3.28/en/docs/user_manual/print_composer/composer_items/composer_image.html#the-north-arrow-item), and [text](https://docs.qgis.org/3.28/en/docs/user_manual/print_composer/composer_items/composer_label.html) and [shapes](https://docs.qgis.org/3.28/en/docs/user_manual/print_composer/composer_items/composer_shapes.html) (e.g. for title and data source). You will need to experiment with these tools and think for yourself about how you want to layout your map. Instructions from some items are suggested below.
 
   Task 4.2 **Add a map to the layout** by
   - click the *Add Map* button from the vertical toolbar on the left of the screen
@@ -365,7 +353,7 @@ This should create a new drawing canvas in a new window. As shown in [the video 
   - add a Legend Title
   - add a frame around the legend
 
-Remember to **save your layout**. The layout is not saved by default when you save the Project. Saving the layout means when you come back to your project you can continue editing. You can save multiple layouts if you want to create different maps (e.g. of different locations, different combinations of data layers, etc.)
+Remember to **save your layout**. The layout is not saved by default when you save the Project. Saving the layout means that when you come back to your project you can continue editing. You can save multiple layouts if you want to create different maps (e.g. of different locations, different combinations of data layers, etc.)
 
 These are just some of the things you can do. You could also try other things like adding an inset map. Aside the ['official' QGIS tutorial](https://docs.qgis.org/3.28/en/docs/training_manual/map_composer/map_composer.html) there are lots of other resources online, including [text tutorials](https://www.qgistutorials.com/en/docs/3/making_a_map.html) and [videos](https://youtu.be/LFJGLaH4Tvg?si=8dlRpvyPFV0XsY5z).  
 
@@ -378,12 +366,14 @@ Finally, we need to export our map to an image file so that we can insert it int
   - click Save
   - pick your export options (the defaults are usually fine, 300dpi is a good resolution)
 
+This process got you started on understanding how to use QGIS to create professional-looking maps. It is up to you to further develop your skills in this area (and remember, even if you don't use these skills for your Fieldtrip coursework, you can still use them for other work and projects!).  
+
 ## 5. Improving the PNV and ACV maps
 
-Now that we have seen the full process of developing a potential natural vegetation (PNV) map in Google Earth Engine (GEE), importing that to QGIS and adding spatial information about current vegetation and land use, and finally creating a professional map in QGIS, we can return to GEE to think about how to improve the PNV map.
+Now that we have seen the full process of developing a potential natural vegetation (PNV) map in Google Earth Engine (GEE), importing that to QGIS and adding spatial information about current vegetation and land use, and finally creating a professional map in QGIS, we can return to GEE to think about how to improve the initial simple PNV map we made.
 
 ### 5.1 Precipitation
-Temperature is an important determinant of vegetation in a region, but as we discussed in the field, so is precipitation. We could try to improve our simple PNV map by including precipitation in the model.
+Temperature is an important determinant of vegetation in a region, but as we discussed in the field, so is precipitation (ultimately these combine together to influence evapotranspiration). Here, we will try to improve our simple PNV map by including precipitation in the model.
 
 The [WorldClim dataset](https://developers.google.com/earth-engine/datasets/catalog/WORLDCLIM_V1_BIO#bands) contains several precipitation variables. We could try using the annual precipitation data (band *bio12*) - let's visualise that on the map to check it matches our understanding of the spatial distribution of precipitation over the island.
 
@@ -438,14 +428,14 @@ Map.addLayer(pnvAMTwcAP, pnvVisParam, 'PNV (AMT & wcAP)');
 See if you can understand how this last code block has incorporated the precipitation data. Think about the following questions:
 - Which ecosystem types is precipitation modelled as affecting and why?
 - Where did the value of 500 come from and is this appropriate?
-- Do you think the new PNV map is a better representation given the literature on Tenerife vegetation.
+- Do you think the new PNV map is a better representation given the literature on Tenerife vegetation?
 
 If you think you will address the Vegetation question for Coursework 2, you could think further about other drivers of PNV you might add and explore data available on the [Earth Engine Data Catalogue](https://developers.google.com/earth-engine/datasets).
 
 ### 5.2 Fire
 While in Tenerife we also saw the influence of fire on current vegetation. Maybe this could also be included in a map of current vegetation. Rather than trying to digitise this ourselves, we could use data from remote sensing in GEE.
 
-The MODIS satellites collect data at a 1km resolution that is used partly to create daily maps of fire globally - [these data are available in GEE](https://developers.google.com/earth-engine/datasets/catalog/MODIS_061_MOD14A1). The next code block creates and visualizes a map that shows the extent of the 2023 fire as observed by the MODIS terra satellite.
+The MODIS satellites collect data at a 1 km resolution that is used partly to create daily maps of fire globally - [these data are available in GEE](https://developers.google.com/earth-engine/datasets/catalog/MODIS_061_MOD14A1). The next code block creates and visualizes a map that shows the extent of the 2023 fire as observed by the MODIS terra satellite.
 
   Task 5.4 **Copy and paste** the next block of code into the GEE Code Editor (at the bottom of all the other code) and **click ‘Run’ in GEE** to run the script.
 
@@ -456,8 +446,7 @@ var fireTerra = ee.ImageCollection("MODIS/061/MOD14A1")
   .filter(ee.Filter.date('2023-07-15', '2023-11-11'))
   .filterBounds(ee.Geometry.Point([lon,lat]));
 
-//could add code here to also load and use MODIS Aqua data
-//https://developers.google.com/earth-engine/datasets/catalog/MODIS_061_MYD14A1
+//could add code here to also load and use MODIS Aqua data https://developers.google.com/earth-engine/datasets/catalog/MODIS_061_MYD14A1#description
 
 // select FireMask band only (values 7-9 indicate fire as detailed in the Bands info)
 var fireMaskTerra = fireTerra.select('FireMask')
@@ -472,10 +461,10 @@ var fire = ee.Image(0).clip(tenerife)
 Map.addLayer(fire, {min: 0, max: 1}, 'Fire');
 ```
 
-You might think about how you could add a conditional statement to PNV model code (previous code block) to integrate fire into the map as an additional PNV class.
+You might think about how you could add a conditional statement to the PNV model code (previous code block) to integrate fire into the map as an additional PNV class (you might then also want to update the raster visualisation parameters).
 
 # 6. Summary
-The activities above have given you the tools to create an annotated map of the current distribution of vegetation (and land use) that you could include in a report that answers the Vegetation question for Coursework 2 (see the fieldtrip handbook). While creating the map you should think further about how our understanding of the physical drivers of vegetation distributions (from the literature) could be incorporated. You should also think about what you saw while in Tenerife and combine those observations with visible satellite imagery to produce the map. If you are digitizing you should take more care than in the demonstration videos and animations, but work at a resolution similar to that of the raster data (with a minimum mappable unit of 1 sq km).
+The activities above have given you the tools to create an annotated map of the potential and current distribution of vegetation (and land use) that you could include in a report that answers the Vegetation question for Coursework 2 (see the fieldtrip handbook). While creating the map you should think further about how our understanding of the physical drivers of vegetation distribution (from the literature) could be incorporated. You should also think about what you saw while in Tenerife and combine those observations with visible satellite imagery to produce the map. If you are digitizing you should take more care than in the demonstration videos and animations, but work at a resolution similar to that of the raster data (with a minimum mappable unit of 1 sq km).
 
 ## Key Readings
 - del Arco Aguilar, M. J., González-González, R., Garzón-Machado, V., & Pizarro-Hernández, B. (2010). Actual and potential natural vegetation on the Canary Islands and its conservation status. *Biodiversity and Conservation*, 19, 3089-3140.
