@@ -593,4 +593,4 @@ function addCategoricalLegend(panel, dict, title) {
 
 // Add the legend to the map
 addCategoricalLegend(legend, dict, "PNV");
-``
+```
