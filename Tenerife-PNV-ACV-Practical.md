@@ -1,5 +1,5 @@
 # Potential Natural & Actual Current Vegetation of Tenerife
-_Practical, 22 January 2024 with [james.millington@kcl.ac.uk](mailto:james.millington@kcl.ac.uk)_
+_Practical, 24 January 2025 with [james.millington@kcl.ac.uk](mailto:james.millington@kcl.ac.uk)_
 
 ## 0. Introduction
 
