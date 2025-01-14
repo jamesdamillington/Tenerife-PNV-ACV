@@ -21,10 +21,9 @@ You should then pursue improvements in the map (improving the digitization and l
 
 ## 1. Creating a simple PNV map with GEE
 
-In Term 1 you should have created a Google Earth Engine account that you then used with Emma Tebbs in the practical in Week 2 (see the KEATS message [here](https://keats.kcl.ac.uk/mod/forum/discuss.php?d=610870) if you did not do that – it can take several days for your account to be activated so if you do not already have an account you may need to work with a friend for the GEE parts of this practical). This practical builds on some of the things you did with Emma previously, so you may want to review the instructions for that practical quickly before starting here. For example, see the section _What is Google Earth Engine (GEE)?_ to remind yourself of the GEE basics.
+You should already have a Google Earth Engine account (whether from the session in his module with Emma Tebbs last term, or from the Research Skills module). If you did not do that see the instructions provided on KEATS. NB: it can take several days for your account to be activated so if you do not already have an account you may need to work with a friend for the GEE parts of this practical. This practical builds on some of the things you did with Emma Tebbs previously, so you may want to review the instructions for that practical quickly before starting here. For example, see the section _What is Google Earth Engine (GEE)?_ to remind yourself of the GEE basics.
 
   - Task 1.1 **Open Google Earth Engine** by visiting [https://code.earthengine.google.com/](https://code.earthengine.google.com/) and logging in with your account. **Create a new script** by clicking the red *NEW* button, selecting *File*, provide a sensible filename, and then click OK.  
-
 
   - Task 1.2 **Copy and paste** the following code into the GEE Code Editor (you can quickly use the copy button in the top-right of the code block below) and **click ‘Run’ in GEE** to run the script.
 
@@ -51,7 +50,7 @@ After running the code, GEE should look like Figure 2.
 
 See if you can understand what the code here does. Loading a polygon of the boundary of Tenerife will be useful below to work only with data for Tenerife. Much of the data supplied in the [Earth Engine Data Catalog](https://developers.google.com/earth-engine/datasets) is global in extent, and it's much quicker to clip the data just to work with the smaller region we want.
 
-For example, the next block of code reads the [WorldClim](https://developers.google.com/earth-engine/datasets/catalog/WORLDCLIM_V1_BIO#description) data set and immediately <a href="http://wiki.gis.com/wiki/index.php/Clip" target="_blank">'clips'</a> it to the extent of Tenerife.
+For example, the next block of code reads the [WorldClim](https://developers.google.com/earth-engine/datasets/catalog/WORLDCLIM_V1_BIO#description) data set and immediately <a href="https://gisgeography.com/clip-tool-gis/" target="_blank">'clips'</a> it to the extent of Tenerife.
 
   - Task 1.3 **Copy and paste** the following code into the GEE Code Editor (below the last block of code) and **click ‘Run’ in GEE** to run the script.
 
@@ -275,7 +274,7 @@ Then add the Google Satellite layer to the project as you did in Task 2.10 for O
 
 A video demonstrating the tasks taken in this section is available on KEATS (and via [this link](https://media.kcl.ac.uk/media/TenerifeVeg-Prac23-24-Section3/1_531y4k2m) - King's login required). Hopefully the instructions below will be clear, but the video may help where you are uncertain.
 
-To map current vegetation and land use we can manually delineate areas by digitizing [polygon features](http://wiki.gis.com/wiki/index.php/Polygon_Feature_Class). First we need to [create a new shapefile layer](https://docs.qgis.org/3.28/en/docs/user_manual/managing_data_source/create_layers.html#creating-a-new-shapefile-layer) to contain the polgyons and their attribute data (i.e. the land use or vegetation types that correspond to each polygon). The tasks to do this are shown by the animation in Figure 9.
+To map current vegetation and land use we can manually delineate areas by digitizing [polygon features](https://pro.arcgis.com/en/pro-app/latest/help/data/geodatabases/overview/feature-class-basics.htm). First we need to [create a new shapefile layer](https://docs.qgis.org/3.28/en/docs/user_manual/managing_data_source/create_layers.html#creating-a-new-shapefile-layer) to contain the polgyons and their attribute data (i.e. the land use or vegetation types that correspond to each polygon). The tasks to do this are shown by the animation in Figure 9.
 
 ![Creating a new shapefile in QGIS](img/Tenerife-PNV-ACV-step3-1.gif)
 *Figure 9. Creating a new shapefile in QGIS*
