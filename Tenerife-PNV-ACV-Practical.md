@@ -206,7 +206,7 @@ While much of our work in GEE is in the cloud, we will be using QGIS on a local 
 
   - Task 2.1 **Create a new folder on your computer** (in a sensible location and with a sensible name) to save your QGIS data for this project. This folder will be referred to as the _working directory_.   
 
-  - Task 2.2 **Open QGIS**. On King's computers that is most easily done by hitting the 'Windows key', then typing _QGIS_, then clicking the relevant icon (here, we assumes you are using version QGIS 3.28, as currently installed on King's computers)
+  - Task 2.2 **Open QGIS**. On King's computers that is most easily done by hitting the 'Windows key', then typing _QGIS_, then clicking the relevant icon (here, we assumes you are using version QGIS 3.34, as currently installed on King's computers)
 
   - Task 2.3 **Create a new project in QGIS** When opening QGIS you may be offered the option of creating a new project from a blank template - clicking this option is fine as long as the new project has projection _EPSG: 4326 (WGS84)_. Alternatively, click Project -> New.
 
