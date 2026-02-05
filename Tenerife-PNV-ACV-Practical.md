@@ -1,5 +1,5 @@
 # Potential Natural & Actual Current Vegetation of Tenerife
-_Practical, 24 January 2025 with [james.millington@kcl.ac.uk](mailto:james.millington@kcl.ac.uk)_
+_Practical, 09 February 2026 with [james.millington@kcl.ac.uk](mailto:james.millington@kcl.ac.uk)_
 
 ## 0. Introduction
 
@@ -12,7 +12,11 @@ By the end of this practical you should have:
 3. Created a shapefile to overlay the location of ACV
 4. Created a QGIS 'Layout' from the combination of 1, 2 and 3 to produce a professional map (of the sort that might be included in your report)
 
-These objectives are laid out in the next four sections of this document, along with accompanying videos (see KEATS). You should aim to finish sections 1-4 by the end of the timetabled practical, to produce a map that looks something like Figure 1 (which is a rough map and I would expect better in your report, should you choose the Vegetation Question for Coursework 2).
+These objectives are laid out in the next four sections of this document, along with accompanying videos (see KEATS). These instructions are a starting guide and you will likely need to learn from other materials (e.g. the many links to documentation in the text below) and explore for yourself how to use GEE and QGIS to create good spatial data visualisations. 
+
+Note: the links to QGIS documentation are to the latest version of QGIS. These instructions assume you are using either QGIS 3.34 or QGIS 3.40 (there are very minimal differences between the versions for what we do in this practical - these differences are highlighted in the text where appropriate). If you wish to view QGIS documentation for a version other than the latest, select it in the bottom left corner of the QGIS documentation website. 
+
+You should aim to finish sections 1-4 by the end of the timetabled practical, to produce a map that looks something like Figure 1 - this is a rough map and I would expect better in your report, should you choose the Vegetation Question for Coursework 2.
 
 ![A rough map produced by the end of section 4](/img/Tenerife-PNV-ACV-MyLayout.png)
 *Figure 1. A rough map produced by the end of section 4*
@@ -198,7 +202,7 @@ You should now find the file _PNV-AMTfloat.tif_ in your Downloads folder.
 
 GEE is excellent for processing large amounts of pre-existing (usually raster) data. However, it is not so good at presenting spatial data and does not provide much functionality for creating new vector data. For those things, Geographic Informations Systems - like QGIS - are much more useful. We'll switch now to use QGIS to add additional information and present the simple PNV map created above (later you can improve the PNV map if you want).
 
-You will find [the QGIS documentation](https://docs.qgis.org/3.34/en/docs/index.html) useful to review, including a handy guide to the [graphical interface](https://docs.qgis.org/3.34/en/docs/user_manual/introduction/qgis_gui.html) and details on [how to work with raster data](https://docs.qgis.org/3.34/en/docs/user_manual/working_with_raster/index.html).
+You will find [the QGIS documentation](https://docs.qgis.org/latest/en/docs/index.html) useful to review, including a handy guide to the [graphical interface](https://docs.qgis.org/latest/en/docs/user_manual/introduction/qgis_gui.html) and details on [how to work with raster data](https://docs.qgis.org/latest/en/docs/user_manual/working_with_raster/index.html).
 
 A video demonstrating the tasks taken in this section is available on KEATS (and via [this link](https://media.kcl.ac.uk/media/TenerifeVeg-Prac23-34-Section2.mp4/1_jdq37yyo) - King's login required). Hopefully the instructions below will be clear, but the video may help where you are uncertain.
 
@@ -210,7 +214,7 @@ While much of our work in GEE is in the cloud, we will be using QGIS on a local 
 
   - Task 2.3 **Create a new project in QGIS** When opening QGIS you may be offered the option of creating a new project from a blank template - clicking this option is fine as long as the new project has projection _EPSG: 4326 (WGS84)_. Alternatively, click Project -> New.
 
-You can read about working with project files in [the QGIS documentation](https://docs.qgis.org/3.34/en/docs/user_manual/introduction/project_files.html).
+You can read about working with project files in [the QGIS documentation](https://docs.qgis.org/latest/en/docs/user_manual/introduction/project_files.html).
 
 The next three tasks are shown by the animation in Figure 6.
 
@@ -229,7 +233,7 @@ Great! We've imported the raster data. It's important you now **save your projec
 
 When the raster is initially imported, it comes with no visualisation metadata and QGIS just uses a linear greyscale to visualise the PNV categories. We can do better than this.
 
-We want a unique colour for each vegetation type and a legend which communicates their correspondence. Doing this in QGIS this is called [band rendering](https://docs.qgis.org/3.34/en/docs/user_manual/working_with_raster/raster_properties.html#band-rendering) and can be done manually yourself or by using a [Style file](https://docs.qgis.org/3.34/en/docs/user_manual/introduction/general_tools.html?highlight=style%20file#save-and-share-layer-properties) that someone else has made. We will take the latter approach here, loading a Style file James made for the main ecosystem types we visited in Tenerife (and that are present in our simple PNV map).  
+We want a unique colour for each vegetation type and a legend which communicates their correspondence. Doing this in QGIS this is called [band rendering](https://docs.qgis.org/latest/en/docs/user_manual/working_with_raster/raster_properties.html#band-rendering) and can be done manually yourself or by using a [Style file](https://docs.qgis.org/latest/en/docs/user_manual/introduction/general_tools.html?highlight=style%20file#save-and-share-layer-properties) that someone else has made. We will take the latter approach here, loading a Style file James made for the main ecosystem types we visited in Tenerife (and that are present in our simple PNV map).  
 
   - Task 2.8 **Download _tenerife_pnv.qml_ from KEATS and move it to your working directory**
 
@@ -244,6 +248,7 @@ The animation in Figure 7 shows the tasks we take to load the style file we just
     - click Symbology (tab on left)
     - click Style (bottom of dialogue box)
     - click Load Style
+    - (_in versions of QGIS >3.34_ next you will need to click the button with three dots to the right of the File box, leaving all Categories checked [not shown in the animation or video])
     - select _tenerife_pnv.qml_
     - click Open
     - click OK
@@ -274,7 +279,7 @@ Then add the Google Satellite layer to the project as you did in Task 2.10 for O
 
 A video demonstrating the tasks taken in this section is available on KEATS (and via [this link](https://media.kcl.ac.uk/media/TenerifeVeg-Prac23-24-Section3/1_531y4k2m) - King's login required). Hopefully the instructions below will be clear, but the video may help where you are uncertain.
 
-To map current vegetation and land use we can manually delineate areas by digitizing [polygon features](https://pro.arcgis.com/en/pro-app/latest/help/data/geodatabases/overview/feature-class-basics.htm). First we need to [create a new shapefile layer](https://docs.qgis.org/3.34/en/docs/user_manual/managing_data_source/create_layers.html#creating-a-new-shapefile-layer) to contain the polgyons and their attribute data (i.e. the land use or vegetation types that correspond to each polygon). The tasks to do this are shown by the animation in Figure 9.
+To map current vegetation and land use we can manually delineate areas by digitizing [polygon features](https://pro.arcgis.com/en/pro-app/latest/help/data/geodatabases/overview/feature-class-basics.htm). First we need to [create a new shapefile layer](https://docs.qgis.org/latest/en/docs/user_manual/managing_data_source/create_layers.html#creating-a-new-shapefile-layer) to contain the polgyons and their attribute data (i.e. the land use or vegetation types that correspond to each polygon). The tasks to do this are shown by the animation in Figure 9.
 
 ![Creating a new shapefile in QGIS](img/Tenerife-PNV-ACV-step3-1.gif)
 *Figure 9. Creating a new shapefile in QGIS*
@@ -289,15 +294,15 @@ This should have created four new files in your working directory, with names as
 
 If the new shapefile has not been added to your list of layers (i.e. is not visible in the bottom left pane), add it to the project by going to the *Project Home* folder in the Browser pane, right-click then **Add Layer to Project**.  
 
-Now that we have created the new shapefile we can start adding information to it - specifically, by [digitizing (drawing) polygons and adding accompanying attribute data](https://docs.qgis.org/3.34/en/docs/user_manual/working_with_vector/editing_geometry_attributes.html#sec-edit-existing-layer). The tasks to digitize polygons are illustrated by the animation in Figure 10.
+Now that we have created the new shapefile we can start adding information to it - specifically, by [digitizing (drawing) polygons and adding accompanying attribute data](https://docs.qgis.org/latest/en/docs/user_manual/working_with_vector/editing_geometry_attributes.html#sec-edit-existing-layer). The tasks to digitize polygons are illustrated by the animation in Figure 10.
 
 ![Digitizing polygons in QGIS](img/Tenerife-PNV-ACV-step3-2.gif)
 *Figure 10. Digitizing polygons in QGIS*
 
-To facilitate the digitization of polygons, it is useful to [enable snapping](https://docs.qgis.org/3.34/en/docs/user_manual/working_with_vector/editing_geometry_attributes.html#snapping-and-digitizing-options).
+To facilitate the digitization of polygons, it is useful to [enable snapping](https://docs.qgis.org/latest/en/docs/user_manual/working_with_vector/editing_geometry_attributes.html#snapping-and-digitizing-options).
 
   - Task 3.2 **Enable snapping** by
-    - first, enable Snapping Toolbar (right-click on an empty area of a toolbar, then check snapping toolbar)
+    - first, enable Snapping Toolbar (right-click on an empty area of a toolbar, then check 'Snapping Toolbar')
     - move the new toolbar if desired by drag-and-drop
     - click the magnet icon to enable snapping
 
@@ -305,7 +310,7 @@ Now we can start to draw our polygons. By default, all layers in QGIS are read-o
 
   - Task 3.3 **Digitize polygon features** by
     - right-click the shapefile layer to add polygons to (in this case *tenerife-land-use*) then click Toggle Editing (new icons will become available on the toolbar)
-    - click the green icon for creating a *New Polygon Feature*
+    - click the green icon for adding a *New Polygon Feature*
     - start drawing polygons (see below)
     - save your edits (new polygons) by clicking the *Save Layer Edits* button on the toolbar
     - remember to *Toggle Editing* off once you are finishing digitizing (either click the button on the toolbar next to *Save Layer Edits* or right-click the layer to toggle off via the layer context menu)
@@ -352,9 +357,9 @@ You could experiment with changing the transparency of the raster layer so that 
 
 ## 4. Create a QGIS Layout for a professional map
 
-In QGIS we can use [the Layouts feature](https://docs.qgis.org/3.34/en/docs/user_manual/print_composer/index.html) to create professional-looking maps to print or save them as an image (or PDF) to include in your reports and presentations. We'll look at how to do that now before potentially going back to GEE to see how we could improve our simple PNV map (in section 5).
+In QGIS we can use [the Layouts feature](https://docs.qgis.org/latest/en/docs/user_manual/print_composer/index.html) to create professional-looking maps to print or save them as an image (or PDF) to include in your reports and presentations. We'll look at how to do that now before potentially going back to GEE to see how we could improve our simple PNV map (in section 5).
 
-The [QGIS documentation on Layouts](https://docs.qgis.org/3.34/en/docs/user_manual/print_composer/index.html) will be useful and a video demonstrating the tasks taken in this section is available on KEATS (and via [this link](https://media.kcl.ac.uk/media/TenerifeVeg-Prac23-24-Section4/1_5ibhol3b) - King's login required). Hopefully the instructions below will be clear, but the video may help where you are uncertain.
+The [QGIS documentation on Layouts](https://docs.qgis.org/latest/en/docs/user_manual/print_composer/index.html) will be useful and a video demonstrating the tasks taken in this section is available on KEATS (and via [this link](https://media.kcl.ac.uk/media/TenerifeVeg-Prac23-24-Section4/1_5ibhol3b) - King's login required). Hopefully the instructions below will be clear, but the video may help where you are uncertain.
 
   - Task 4.1 **Create a new Layout** by
     - go to Project menu
@@ -362,7 +367,7 @@ The [QGIS documentation on Layouts](https://docs.qgis.org/3.34/en/docs/user_manu
     - enter a sensible Name
     - click OK
 
-This should create a new drawing canvas in a new window. As shown in [the video on KEATS](https://media.kcl.ac.uk/media/TenerifeVeg-Prac23-24-Section4/1_5ibhol3b) we can add various elements to the canvas, including [the map](https://docs.qgis.org/3.34/en/docs/user_manual/print_composer/composer_items/composer_map.html#)  itself, [a legend](https://docs.qgis.org/3.34/en/docs/user_manual/print_composer/composer_items/composer_legend.html) for the map, a [scale bar](https://docs.qgis.org/3.34/en/docs/user_manual/print_composer/composer_items/composer_scale_bar.html), a [north arrow](https://docs.qgis.org/3.34/en/docs/user_manual/print_composer/composer_items/composer_image.html#the-north-arrow-item), and [text](https://docs.qgis.org/3.34/en/docs/user_manual/print_composer/composer_items/composer_label.html) and [shapes](https://docs.qgis.org/3.34/en/docs/user_manual/print_composer/composer_items/composer_shapes.html) (e.g. for title and data source). You will need to experiment with these tools and think for yourself about how you want to layout your map. Instructions from some items are suggested below.
+This should create a new drawing canvas in a new window. As shown in [the video on KEATS](https://media.kcl.ac.uk/media/TenerifeVeg-Prac23-24-Section4/1_5ibhol3b) we can add various elements to the canvas, including [the map](https://docs.qgis.org/latest/en/docs/user_manual/print_composer/composer_items/composer_map.html#)  itself, [a legend](https://docs.qgis.org/latest/en/docs/user_manual/print_composer/composer_items/composer_legend.html) for the map, a [scale bar](https://docs.qgis.org/latest/en/docs/user_manual/print_composer/composer_items/composer_scale_bar.html), a [north arrow](https://docs.qgis.org/latest/en/docs/user_manual/print_composer/composer_items/composer_image.html#the-north-arrow-item), and [text](https://docs.qgis.org/latest/en/docs/user_manual/print_composer/composer_items/composer_label.html) and [shapes](https://docs.qgis.org/latest/en/docs/user_manual/print_composer/composer_items/composer_shapes.html) (e.g. for title and data source). You will need to experiment with these tools and think for yourself about how you want to layout your map. Instructions from some items are suggested below.
 
   - Task 4.2 **Add a map to the layout** by
     - click the *Add Map* button from the vertical toolbar on the left of the screen
@@ -371,7 +376,7 @@ This should create a new drawing canvas in a new window. As shown in [the video 
 
   - Task 4.3 **Add a grid and frame**
     - ensure the map is selected and go to the *Item Properties* tab in the lower-right pane
-    - scroll down to grid, click drop-down arrow, then green plus button, then select the grid in the list and click Modify Grid
+    - scroll down to 'Grids', click drop-down arrow, then green plus button, then select the grid in the list and click Modify Grid
     - set the interval for the spacing of the grid lines (by default this is in the units of the map projection, which for EPSG 4326 is decimal degrees)
     - change the colour of the lines if desired (select from *line style*)
     - add coordinates by checking the box for Draw Coordinates (change orientation of coordinates if desired)
@@ -395,9 +400,9 @@ This should create a new drawing canvas in a new window. As shown in [the video 
     - add a Legend Title
     - add a frame around the legend
 
-Remember to **save your layout**. The layout is not saved by default when you save the Project. Saving the layout means that when you come back to your project you can continue editing. You can save multiple layouts if you want to create different maps (e.g. of different locations, different combinations of data layers, etc.)
+Remember to **save your layout**. The layout is *not* necessarily saved by default when you save the Project. Saving the layout means that when you come back to your project you can continue editing. You can save multiple layouts if you want to create different maps (e.g. of different locations for inset maps, different combinations of data layers, etc.)
 
-These are just some of the things you can do. You could also try other things like adding an inset map. Aside the ['official' QGIS tutorial](https://docs.qgis.org/3.34/en/docs/training_manual/map_composer/map_composer.html) there are lots of other resources online, including [text tutorials](https://www.qgistutorials.com/en/docs/3/making_a_map.html) and [videos](https://youtu.be/LFJGLaH4Tvg?si=8dlRpvyPFV0XsY5z).  
+These are just some of the things you can do. You could also try other things like adding an inset map. Aside the ['official' QGIS tutorial](https://docs.qgis.org/latest/en/docs/training_manual/map_composer/map_composer.html) there are lots of other resources online, including [text tutorials](https://www.qgistutorials.com/en/docs/3/making_a_map.html) and [videos](https://youtu.be/LFJGLaH4Tvg?si=8dlRpvyPFV0XsY5z).  
 
 Finally, we need to export our map to an image file so that we can insert it into a report or presentation. This is shown in [the video from 18:03](https://media.kcl.ac.uk/media/TenerifeVeg-Prac23-24-Section4/1_5ibhol3b?st=1083).
 
@@ -509,8 +514,9 @@ You might think about how you could add a conditional statement to the PNV model
 The activities above have given you the tools to create an annotated map of the potential and current distribution of vegetation (and land use) that you could include in a report that answers the Vegetation question for Coursework 2 (see the fieldtrip handbook). While creating the map you should think further about how our understanding of the physical drivers of vegetation distribution (from the literature) could be incorporated. You should also think about what you saw while in Tenerife and combine those observations with visible satellite imagery to produce the map. If you are digitizing you should take more care than in the demonstration videos and animations, but work at a resolution similar to that of the raster data (with a minimum mappable unit of 1 sq km).
 
 ## Key Readings
-- del Arco Aguilar, M. J., González-González, R., Garzón-Machado, V., & Pizarro-Hernández, B. (2010). Actual and potential natural vegetation on the Canary Islands and its conservation status. *Biodiversity and Conservation*, 19, 3089-3140.
+- del Arco Aguilar, M. J., González-González, R., Garzón-Machado, V., & Pizarro-Hernández, B. (2010). Actual and potential natural vegetation on the Canary Islands and its conservation status. *Biodiversity and Conservation*, 19, 3089-3140. https://doi.org/10.1007/s10531-010-9881-2
 - del Arco Aguilar, M. J. and Rodriguez Delgado, O. (2018) *Vegetation of the Canary Islands.* Springer. https://doi.org/10.1007/978-3-319-77255-4
+- García-Alvarado, J.J., Bello-Rodríguez, V., González-Mancebo, J.M. et al. (2024) Updating knowledge of vegetation belts on a complex oceanic island after 20 years under the effect of climate change. *Biodiversity and Conservation*, 33, 2441–2463. https://doi.org/10.1007/s10531-024-02864-3
 
 ## Appendix
 *Code for a PNV legend in GEE*
